@@ -1,4 +1,5 @@
 django
 channels
-websocket-client
 channels_redis
+psycopg2
+gunicorn
