@@ -130,11 +130,17 @@ STATIC_URL = '/static/'
 #REDIS Configuration
 ASGI_APPLICATION = "chatman.routing.application"
 
+# redis_config = os.environ.get('REDIS_URL').spl
+redis_host = "redis://h:pe47ba80d9dffc018c3cee35a7dc96dac2f39b965892e485159b33d673c246a0d@ec2-54-210-98-224.compute-1.amazonaws.com"
+redis_port = "56249"
+
+# print(redis_config)
+
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
+            "hosts": [(redis_host, redis_port)],
         },
     },
 }
