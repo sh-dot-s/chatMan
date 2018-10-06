@@ -18,9 +18,13 @@ def room(request, room_name):
 
 @csrf_exempt
 def addroom(request):
+    print("Add Room Called", request.POST)
     try:
         roomname = request.POST['roomname']
         roomlabel = request.POST['roomlabel']
+        print(Room.objects.filter(name=roomname).count())
+        if(Room.objects.filter(name=roomname).count() > 0):
+            raise Exception("Duplicate Room")
         newroom = Room.objects.create(name=roomname, label=roomlabel)
         
         return JsonResponse({
@@ -28,6 +32,7 @@ def addroom(request):
             "label": newroom.label
         })
     except Exception as e:
+        print(e)
         return JsonResponse({
             "error": str(e)
-        })
+        }, status=400)

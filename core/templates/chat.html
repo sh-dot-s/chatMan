@@ -64,6 +64,7 @@
             url:'/addroom/',
             data: $('#addRoom').serializeArray(),
             success: (data) => {
+                console.log(data);
                 var construct = `<a class="card-text" href="room/${data.name}/">
                                     <div class="card bg-default">
                                         <div class="card-body text-center">
@@ -77,12 +78,13 @@
             error: (error) => {
                 document.getElementById("error").innerHTML = `
                 <div class="alert alert-danger alert-dismissible fade show">
-                Failed to add Room, ${error.error}
+                Failed to add Room, ${error.responseJSON.error}
                 </div>
                 `
             }
         });
         $('#myModal').modal('hide');
+        document.getElementById("addRoom").reset();
     });
 </script>
 {% endblock content %}
