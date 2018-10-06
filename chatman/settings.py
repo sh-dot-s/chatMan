@@ -76,9 +76,9 @@ STATIC_ROOT = "/static"
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config("postgres://zwuisjendpnarh:9804e8a564bb94dfb8d01b175a307d78a67dbf2252ea8828a1fc1a3f5039d7ad@ec2-23-21-171-249.compute-1.amazonaws.com:5432/dcj103dh9drbbv")
-}
+DATABASES['default'] = dj_database_url.config()
+SECURE_PROXY_SSL_HEADER = (‘HTTP_X_FORWARDED_PROTO’, ‘https’)
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
