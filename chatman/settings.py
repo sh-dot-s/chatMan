@@ -14,9 +14,6 @@ import os
 import dj_database_url
 import redis
 
-r = redis.from_url(os.environ.get("REDIS_URL"))
-print("*"*50,r,"*"*50)
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -134,17 +131,19 @@ STATIC_URL = '/static/'
 #REDIS Configuration
 ASGI_APPLICATION = "chatman.routing.application"
 
-# redis_config = os.environ.get('REDIS_URL').spl
-redis_host = "ec2-54-210-98-224.compute-1.amazonaws.com"
-redis_port = "56249"
+r = redis.from_url(os.environ.get("REDIS_URL"))
 
-# print(redis_config)
+redis_config = r.connection_pool.connection_kwargs
 
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [(redis_host, redis_port)],
+            "hosts": [(redis_config['host'], redis_config['port'])],
         },
+        "OPTIONS": {
+             "PASSWORD": redis_config['password'],
+             "DB": redis_config['db'],
+         },
     },
 }
