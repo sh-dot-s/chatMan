@@ -70,7 +70,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'chatman.wsgi.application'
-
+STATIC_ROOT = "/static"
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
