@@ -77,7 +77,7 @@ STATIC_ROOT = "/static"
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES['default'] = dj_database_url.config()
-SECURE_PROXY_SSL_HEADER = (‘HTTP_X_FORWARDED_PROTO’, ‘https’)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # DATABASES = {
 #     'default': {
