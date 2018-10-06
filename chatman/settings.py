@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import dj_database_url
+import redis
+
+r = redis.from_url(os.environ.get("REDIS_URL"))
+print("*"*50,r,"*"*50)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -131,7 +135,7 @@ STATIC_URL = '/static/'
 ASGI_APPLICATION = "chatman.routing.application"
 
 # redis_config = os.environ.get('REDIS_URL').spl
-redis_host = "redis://h:pe47ba80d9dffc018c3cee35a7dc96dac2f39b965892e485159b33d673c246a0d@ec2-54-210-98-224.compute-1.amazonaws.com"
+redis_host = "ec2-54-210-98-224.compute-1.amazonaws.com"
 redis_port = "56249"
 
 # print(redis_config)
