@@ -1,8 +1,10 @@
 {% extends 'root.html' %}
 {% block content %}
-<div class="card-deck">
+{% csrf_token %}
+<h3>Welcome to Chat Rooms</h3><br>
+<div class="card-deck" id="roomSpace">
     {% for room in rooms %}
-        <a class="card-text" href="/{{room.name}}/">
+        <a class="card-text" href="room/{{room.name}}/">
             <div class="card bg-default">
                 <div class="card-body text-center">
                     <h3 class="card-title">{{room.name}}</h3>
@@ -12,4 +14,75 @@
         </a>
     {% endfor %}
 </div>
+<!-- Button to Open the Modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Room</button>
+<div id="error"></div>
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <h4 class="modal-title">Room Details</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+            <form class="form-group" id="addRoom">
+                <div class="form-group">
+                        <label for="roomname">Room Name:</label>
+                        <input type="text" name="roomname" class="form-control" id="roomname" required/>
+                </div>
+                <div class="form-group">
+                        <label for="roomlabel">Room Name:</label>
+                        <input type="text" name="roomlabel" class="form-control" id="roomlable" required/>
+                </div>
+                <input type="submit" class="btn btn-success" value="Submit"/>
+            </form>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $("#addRoom").on("submit", (e) => {
+        e.preventDefault();
+        $.ajaxSetup({
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+        });
+        $.ajax({
+            type: 'POST',
+            url:'/addroom/',
+            data: $('#addRoom').serializeArray(),
+            success: (data) => {
+                var construct = `<a class="card-text" href="room/${data.name}/">
+                                    <div class="card bg-default">
+                                        <div class="card-body text-center">
+                                            <h3 class="card-title">${data.name}</h3>
+                                            <p class="card-text">${data.label}</p>
+                                        </div>
+                                    </div>
+                                </a>`
+                document.querySelector('#roomSpace').innerHTML += (construct);
+            },
+            error: (error) => {
+                document.getElementById("error").innerHTML = `
+                <div class="alert alert-danger alert-dismissible fade show">
+                Failed to add Room, ${error.error}
+                </div>
+                `
+            }
+        });
+        $('#myModal').modal('hide');
+    });
+</script>
 {% endblock content %}
