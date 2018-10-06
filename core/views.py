@@ -10,7 +10,6 @@ def index(request):
     return render(request, 'chat.html', {"rooms":rooms})
 
 def room(request, room_name):
-    print(room_name,"*"*50)
     return render(request, 'room.html', {
         'room_name_json': mark_safe(json.dumps(room_name)),
         'messages': Message.objects.filter(room=Room.objects.get(name=room_name))
@@ -18,7 +17,6 @@ def room(request, room_name):
 
 @csrf_exempt
 def addroom(request):
-    print("Add Room Called", request.POST)
     try:
         roomname = request.POST['roomname']
         roomlabel = request.POST['roomlabel']
