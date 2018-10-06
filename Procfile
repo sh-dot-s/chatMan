@@ -1,2 +1,3 @@
-release: python manage.py migrate
-web: gunicorn chatman.wsgi --log-file -
+#release: python manage.py migrate
+#web: gunicorn chatman.wsgi --log-file -
+web: python manage.py runserver $PORT
