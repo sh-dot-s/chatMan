@@ -42,7 +42,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = event['message']
         createdMessage = Message.objects.create(
             room= Room.objects.get(name=self.room_name),
-            handle="Me",
+            handle=self.scope['user'].username,
             message=message
         )
         # Send message to WebSocket
