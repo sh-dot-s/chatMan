@@ -1,0 +1,15 @@
+{% extends 'root.html' %}
+{% block content %}
+<div class="card-deck">
+    {% for room in rooms %}
+        <a class="card-text" href="/{{room.name}}/">
+            <div class="card bg-default">
+                <div class="card-body text-center">
+                    <h3 class="card-title">{{room.name}}</h3>
+                    <p class="card-text">{{room.label}}</p>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+{% endblock content %}
