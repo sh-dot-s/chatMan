@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.utils.safestring import mark_safe
 import json
 from .models import Room, Message
@@ -15,6 +16,7 @@ def room(request, room_name):
         'messages': Message.objects.filter(room=Room.objects.get(name=room_name))
     })
 
+@csrf_exempt
 def addroom(request):
     print("Add Room Called", request.POST)
     try:
