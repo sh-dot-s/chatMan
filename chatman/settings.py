@@ -139,11 +139,8 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [(redis_config['host'], redis_config['port'])],
-        },
-        "OPTIONS": {
-             "PASSWORD": redis_config['password'],
-             "DB": redis_config['db'],
-         },
+            #("redis://:mypassword@127.0.0.1:6379/0")
+            "hosts": [("redis://:{}@{}:{}/{}".format(redis_config['password'], redis_config['host'], redis_config['port'], redis_config['db']))],
+        }
     },
 }
