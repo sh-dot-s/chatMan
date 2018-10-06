@@ -4,3 +4,4 @@ channels_redis
 psycopg2
 gunicorn
 dj-database-url
+redis
